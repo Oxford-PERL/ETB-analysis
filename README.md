@@ -6,6 +6,12 @@ See notes from kick-ff meeting [here](https://docs.google.com/document/d/1IYzhKy
 
 --------
 
+## Usage
+
+See the [Installation and Usage guide](/docs/installation-and-usage.md).
+
+--------
+
 ## Referencing
 
 Original tasks developed by Catherine J. Harmer (catherine.harmer@psych.ox.ac.uk), University of Oxford, 2003.
