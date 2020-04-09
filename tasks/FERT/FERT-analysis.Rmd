@@ -5,7 +5,7 @@ output: html_notebook
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
-Executing chunks by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+Execute chunks by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
@@ -13,15 +13,23 @@ When you save the notebook, an HTML file containing the code and output will be 
 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
+NOTE: Not sure is a R Notebook is the correct format for what we want (for example, it doesn't render on github - see https://github.com/rstudio/rmarkdown/issues/1020). Maybe R Markdown is more appropriate?? 
+
 
 
 ```{r}
 # Preamble
+rm(list = ls(all.names = TRUE))
+
 library(osfr) 
 library(pracma)
 library(tidyverse)
+```
 
+```{r}
+# Set directory
 root <- getwd()
+print(root)
 ```
 
 
@@ -35,7 +43,7 @@ Below process generated from: https://developer.osf.io/#tag/Authentication and h
 IMPORTANT NOTE: The token must be saved in this directory and with this name to ensure it is captured by the .gitignore and not pushed to the git repository.
 
 ```{r}
-# Give your access token
+# Authorise your access token
 osf_auth(token = read_lines("osf_token_read.txt"))
 ```
 
@@ -44,18 +52,13 @@ osf_auth(token = read_lines("osf_token_read.txt"))
 ```{r}
 # Pull the data from OSF (see https://cran.r-project.org/web/packages/osfr/vignettes/getting_started.html)
 
-# osf global unique ID for where the data are held
-# Update the guid_mainProj value to match the last part of the URL on OSF
-guid_mainProj <- 'adbp8' 
+# osf global unique ID for where the data are held (the R-Analysis component)
+# The below assumes that all data for this analysis will be stored within this component
+guid_mainProj <- 'sxzmv' 
 #pull the data and store it
+# get each component in the project
 data_mainProj <- osf_retrieve_node(guid_mainProj)
-print(data_mainProj,n=Inf)
-```
-
-```{r}
-# get each component in the project (if there are any)
-data_mainProj <- osf_ls_nodes(data_mainProj,n_max=Inf)
-print(data_mainProj,n=Inf)
+#print(data_mainProj,n=Inf)
 ```
 
 ```{r}
@@ -77,6 +80,7 @@ for (comp in 1:nrow(data_mainProj_info)) {
   
   # make a directory for downloaded files to sit in, named after this component (supress "directory already exists" and other warnings)
   dir.create(file.path(root,'data'),recursive = TRUE, showWarnings = FALSE)
+  writeLines(' -- Creating data directory.')
   
   # retrieve that component and get the files 
   data_comp <- osf_retrieve_node(compID)
@@ -87,6 +91,7 @@ for (comp in 1:nrow(data_mainProj_info)) {
   tmp2 <- data.frame(data_comp)
   data_comp_info <- tmp2[keepCol]
   #print(data_comp_info)
+  # print(dim(data_comp_info))
   
   # check to see if the file list is empty. Skip this component if empty
   #https://stackoverflow.com/questions/35366187/how-to-write-if-else-statements-if-dataframe-is-empty
@@ -101,15 +106,34 @@ for (comp in 1:nrow(data_mainProj_info)) {
     fid <- data_comp_info[f, "id"]
     file <- osf_retrieve_file(fid)
     writeLines(sprintf(' -- Downloading file: %s; file ID: %s', fname,fid))
-    osf_download(file,file.path(root,compName),conflicts = "skip")
+    osf_download(file,file.path(root,'data'),conflicts = "skip")
   
     #readline(prompt="Press [enter] to continue")
   }
 
 }
 
-writeLines(' -- Download complete. See you in Cumberland Lodge! :)')
+writeLines(' -- Download complete.')
 ```
 
+```{r}
+# Make a list of the files which have been downloaded
+fileList <- dir(path = file.path(root,'data'), pattern = glob2rx("*FERT*.csv"), full.names = TRUE, recursive = TRUE)
+print(fileList)
+```
+
+```{r}
+# Loop through the downloaded files and do some processing! 
+for (f in 1:length(fileList)){
+  pxData <- read.csv(fileList[f])
+  
+  # THIS IS WHERE THE ACTION HAPPENS!!
+  
+  # just printing here to we can use it.
+  print(head(pxData))
+}
+
+
+```
 
 
