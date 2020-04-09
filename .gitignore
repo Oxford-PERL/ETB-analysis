@@ -1,3 +1,6 @@
 # ignore data pulled from OSF
 
 /tasks/FERT/data
+
+# ignore OSF access tokens
+/tasks/FERT/osf_token_read.txt
