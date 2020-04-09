@@ -1,0 +1,115 @@
+---
+title: "FERT analysis"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Executing chunks by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+
+
+```{r}
+# Preamble
+library(osfr) 
+library(pracma)
+library(tidyverse)
+
+root <- getwd()
+```
+
+
+Get your personal access token (PAT) from OSF: 
+
+Below process generated from: https://developer.osf.io/#tag/Authentication and https://pastebin.com/UZ4ZnzaC 
+
+1. Go to your OSF page > settings > Personal access tokens > Create token 
+2. Give the token the name "R-analysys". Tick "osf.full_read" > Create token
+3. Copy the token and save it in the same directory as this code. Use the file name "osf_token_read.txt"
+IMPORTANT NOTE: The token must be saved in this directory and with this name to ensure it is captured by the .gitignore and not pushed to the git repository.
+
+```{r}
+# Give your access token
+osf_auth(token = read_lines("osf_token_read.txt"))
+```
+
+
+
+```{r}
+# Pull the data from OSF (see https://cran.r-project.org/web/packages/osfr/vignettes/getting_started.html)
+
+# osf global unique ID for where the data are held
+# Update the guid_mainProj value to match the last part of the URL on OSF
+guid_mainProj <- 'adbp8' 
+#pull the data and store it
+data_mainProj <- osf_retrieve_node(guid_mainProj)
+print(data_mainProj,n=Inf)
+```
+
+```{r}
+# get each component in the project (if there are any)
+data_mainProj <- osf_ls_nodes(data_mainProj,n_max=Inf)
+print(data_mainProj,n=Inf)
+```
+
+```{r}
+# turn the tipple it into a dataframe to make it a bit easier to access our columns
+tmp <- data.frame(data_mainProj)
+# get just the columns we need for download ("meta" is huge)
+# name of the columns we are keeping
+keepCol <- c('name','id')
+data_mainProj_info <- tmp[keepCol]
+print(data_mainProj_info)
+```
+
+```{r}
+# loop through rows describing components
+for (comp in 1:nrow(data_mainProj_info)) {
+  compName <- data_mainProj_info[comp, "name"]
+  compID  <- data_mainProj_info[comp, "id"]
+  writeLines(sprintf('\n -- COMPONENT NAME: %s; Compnent ID: %s', compName,compID))
+  
+  # make a directory for downloaded files to sit in, named after this component (supress "directory already exists" and other warnings)
+  dir.create(file.path(root,'data'),recursive = TRUE, showWarnings = FALSE)
+  
+  # retrieve that component and get the files 
+  data_comp <- osf_retrieve_node(compID)
+  data_comp <- osf_ls_files(data_comp,n_max=Inf)
+  #print(data_comp,n=Inf)
+  
+  # tidy up and get our columns as before
+  tmp2 <- data.frame(data_comp)
+  data_comp_info <- tmp2[keepCol]
+  #print(data_comp_info)
+  
+  # check to see if the file list is empty. Skip this component if empty
+  #https://stackoverflow.com/questions/35366187/how-to-write-if-else-statements-if-dataframe-is-empty
+  if (dim(data_comp_info)[1] == 0) {
+    writeLines(sprintf('!! -- WARNING: No files to download (maybe not stored directly on OSF)? \n -- You will need to download these files manually.'))
+    next
+  }
+  
+  # loop through the file list and download each individually
+  for (f in 1:nrow(data_comp_info)) {
+    fname <- data_comp_info[f, "name"]
+    fid <- data_comp_info[f, "id"]
+    file <- osf_retrieve_file(fid)
+    writeLines(sprintf(' -- Downloading file: %s; file ID: %s', fname,fid))
+    osf_download(file,file.path(root,compName),conflicts = "skip")
+  
+    #readline(prompt="Press [enter] to continue")
+  }
+
+}
+
+writeLines(' -- Download complete. See you in Cumberland Lodge! :)')
+```
+
+
+
