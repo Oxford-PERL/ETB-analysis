@@ -2,6 +2,8 @@
 
 This repository contains code for the analysis of the [PERL](https://www.psych.ox.ac.uk/research/psychopharmacology-and-emotion-research-laboratory) ETB tasks. Task code is available to agreed collaborators via our [internal repository](https://git.fmrib.ox.ac.uk/perl/etb-201909)
 
+See notes from kick-ff meeting [here](https://docs.google.com/document/d/1IYzhKy3O6NrcAyTbXRejmxw0MeSUzK2_KSG8FL1oQ0M/edit?usp=sharing)
+
 --------
 
 ## Referencing
