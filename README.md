@@ -35,6 +35,7 @@ Please also cite PsychoPy (https://www.psychopy.org/about/index.html#citingpsych
 
 - Cassandra Gould van Praag, t: @cassgvp, g: @cassgvp
 - Amy Gillespie, University of Oxford
+- Calum Guinea, University of Oxford
 
 
 ## Acknowledgements
