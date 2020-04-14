@@ -13,7 +13,13 @@ When you save the notebook, an HTML file containing the code and output will be 
 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
-NOTE: Not sure is a R Notebook is the correct format for what we want (for example, it doesn't render on github - see https://github.com/rstudio/rmarkdown/issues/1020). Maybe R Markdown is more appropriate?? 
+NOTE: Not sure is a R Notebook is the correct format for what we want (for example, it doesn't render on github - see https://github.com/rstudio/rmarkdown/issues/1020). Maybe R Markdown is more appropriate??
+
+NOTE: For script to run you need to do the following:
+    - Type the following into your R console: 
+            install.packages("devtools")
+    - Then type the following into your R console:
+            devtools::install_github('CenterForOpenScience/osfr')
 
 
 
