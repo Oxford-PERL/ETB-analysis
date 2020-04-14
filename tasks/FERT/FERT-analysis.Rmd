@@ -45,7 +45,7 @@ Below process generated from: https://developer.osf.io/#tag/Authentication and h
 
 1. Go to your OSF page > settings > Personal access tokens > Create token 
 2. Give the token the name "R-analysys". Tick "osf.full_read" > Create token
-3. Copy the token and save it in the same directory as this code. Use the file name "osf_token_read.txt"
+3. Copy the token and save it in the same directory as this code. Use the file name "osf_token_read.txt" 
 IMPORTANT NOTE: The token must be saved in this directory and with this name to ensure it is captured by the .gitignore and not pushed to the git repository.
 
 ```{r}
