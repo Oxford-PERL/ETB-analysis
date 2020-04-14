@@ -12,6 +12,12 @@ See the [Installation and Usage guide](/docs/installation-and-usage.md).
 
 --------
 
+## Contributing
+
+See the guide on [CONTRIBUTING.md](/docs/CONTRIBUTING.md) for how to add PERL members to the Oxford-PERL organisation and how to contribute code to the repository. 
+
+--------
+
 ## Referencing
 
 Original tasks developed by Catherine J. Harmer (catherine.harmer@psych.ox.ac.uk), University of Oxford, 2003.
