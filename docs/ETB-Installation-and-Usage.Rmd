@@ -1,0 +1,89 @@
+---
+title: "ETB Installation and Usage Guide"
+author: "Calum Guinea"
+date: "16/04/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Developed by Catherine J. Harmer, University of Oxford (2003): catherine.harmer@psych.ox.ac.uk
+
+Maintained by Cassandra Gould van Praag (cassandra.gouldvanpraag@psych.ox.ac.uk), Ingrid Martin (ingrid.martin@psych.ox.ac.uk) and Evelyn Watson (evelyn.watson@psych.ox.ac.uk).
+
+If you publish work using this task please cite the ETB publication and GitLab repositories:
+
+Harmer CJ, Hill SA, Taylor MJ, Cowen PJ, Goodwin GM (2003) Towards a neuropsychological theory of antidepressant drug action: potentiation of noradrenaline activity increases positive emotional bias. American Journal of Psychiatry 160, 990-992. DOI: 10.1176/appi.ajp.160.5.990.
+
+https://git.fmrib.ox.ac.uk/perl/etb-201909
+
+The development of this resource was funded by the Medical Research Council UK and by the NIHR Oxford Health Biomedical Research Centre.
+This resource is distributed under Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0) license (https://creativecommons.org/licenses/by-nc/3.0/).
+
+# Changes from version 201904:
+
+    - FERT images replaced with re-morphed images corrected for teeth image quality
+    - Directories renamed with new version date
+    - Task directory naming convention updated
+    - All instances of task name in visual presentation created from code rather than written into psychopy as hard strings
+    - Added Authorship information to print to terminal
+    
+## Table of Contents
+
+1	AUDIENCE AND PURPOSE OF THIS GUIDE	                              4
+1.1	INTENDED AUDIENCE	                                              4
+1.2	PURPOSE	                                                        4
+2	REQUIREMENTS	                                                    4
+2.1	HARDWARE                                                      	4
+2.2	SOFTWARE	                                                      4
+3	TASK SPECIFICATIONS	                                              5
+3.1	AUDITORY VERBAL LEARNING TASK (AVLT)	                          5
+3.2	EMOTIONAL CATEGORISATION TASK (ECAT)	                          6
+3.3	EMOTIONAL MEMORY TASK (EMEM)                                  	7
+3.4	FACES DOT PROBE (FDOT)                                        	8
+3.5	FACES EMOTION RECOGNITION TASK (FERT)	                          9
+4	INSTALLING THE ETB	                                              10
+4.1	ACCESSING THE REPOSITORY	                                      10
+4.2	DOWNLOADING THE REPOSITORY                                    	11
+4.3	USING THE COMMAND LINE TERMINAL                               	10
+4.4	SETTING UP THE CONDA ENVIRONMENT                              	11
+4.5	BUILDING THE ETB-201909 CONDA ENVIRONMENT	                      13
+5	RUNNING THE NON-PYTHON TASKS (AVLT)	                              14
+6	RUNNING THE PYTHON TASKS (ECAT, EMEM, FDOT, FERT)	                14
+6.1	ACTIVATE THE CONDA ENVIRONMENT	                                14
+6.2	RUN THE TASK SCRIPT	                                            14
+6.3	INPUT EXPERIMENTAL SETTINGS	                                    14
+6.4	REQUIRED FILE VERIFICATION	                                    15
+6.5	EXPERIMENTAL SETTINGS INPUT VERIFICATION                      	16
+6.6	RESULTS FILE CLASH WARNING (MACOS ONLY)	                        17
+6.7	PARTICIPANT TASK INSTRUCTIONS	                                  17
+6.8	KEYMAP CHECK                                                  	17
+6.9	TRIAL PROGRESSION	                                              18
+6.10	ENDING THE TASK	                                              18
+6.11	DEACTIVATE THE CONDA ENVIRONMENT	                            18
+6.12	PSYCHOPY SCREEN SIZE WARNING	                                18
+7	RESULTS	                                                          19
+8	DEVELOPER MODIFICATIONS OR CONTRIBUTIONS.	                        19
+
