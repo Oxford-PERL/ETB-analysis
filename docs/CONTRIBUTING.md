@@ -42,7 +42,7 @@ When you make a change to a file on the cloned repository, it will appear in the
 
 Staged changes will now appear in the bottom section. To commit these changes you must add a "Commit subject" and a description of the changes (optional) and click "Commit (1) file". File changes have now been "saved".
 
-To update the files on the main repository these changes now need to be pushed to the "master" branch. On Fork, you do this simply by clicking the arrow in the top bar pointing upwards. Now the latest version of the files on the repository will include your changes.
+To update the files on the main repository these changes now need to be pushed to the "master" branch. On Fork, you do this simply by clicking the arrow in the top bar pointing upwards and then click "Push". Now the latest version of the files on the repository will include your changes.
 
 When working collaboratively, pushing changes you make and describing them fully is important. It's good practice to push any changes you make every time you finish working on something.
 
