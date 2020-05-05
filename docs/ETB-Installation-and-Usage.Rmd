@@ -52,38 +52,142 @@ This resource is distributed under Creative Commons Attribution-NonCommercial 3.
     
 ## Table of Contents
 
-1	AUDIENCE AND PURPOSE OF THIS GUIDE	                              4
-1.1	INTENDED AUDIENCE	                                              4
-1.2	PURPOSE	                                                        4
-2	REQUIREMENTS	                                                    4
-2.1	HARDWARE                                                      	4
-2.2	SOFTWARE	                                                      4
-3	TASK SPECIFICATIONS	                                              5
-3.1	AUDITORY VERBAL LEARNING TASK (AVLT)	                          5
-3.2	EMOTIONAL CATEGORISATION TASK (ECAT)	                          6
-3.3	EMOTIONAL MEMORY TASK (EMEM)                                  	7
-3.4	FACES DOT PROBE (FDOT)                                        	8
-3.5	FACES EMOTION RECOGNITION TASK (FERT)	                          9
-4	INSTALLING THE ETB	                                              10
-4.1	ACCESSING THE REPOSITORY	                                      10
-4.2	DOWNLOADING THE REPOSITORY                                    	11
-4.3	USING THE COMMAND LINE TERMINAL                               	10
-4.4	SETTING UP THE CONDA ENVIRONMENT                              	11
-4.5	BUILDING THE ETB-201909 CONDA ENVIRONMENT	                      13
-5	RUNNING THE NON-PYTHON TASKS (AVLT)	                              14
-6	RUNNING THE PYTHON TASKS (ECAT, EMEM, FDOT, FERT)	                14
-6.1	ACTIVATE THE CONDA ENVIRONMENT	                                14
-6.2	RUN THE TASK SCRIPT	                                            14
-6.3	INPUT EXPERIMENTAL SETTINGS	                                    14
-6.4	REQUIRED FILE VERIFICATION	                                    15
-6.5	EXPERIMENTAL SETTINGS INPUT VERIFICATION                      	16
-6.6	RESULTS FILE CLASH WARNING (MACOS ONLY)	                        17
-6.7	PARTICIPANT TASK INSTRUCTIONS	                                  17
-6.8	KEYMAP CHECK                                                  	17
-6.9	TRIAL PROGRESSION	                                              18
-6.10	ENDING THE TASK	                                              18
-6.11	DEACTIVATE THE CONDA ENVIRONMENT	                            18
-6.12	PSYCHOPY SCREEN SIZE WARNING	                                18
-7	RESULTS	                                                          19
-8	DEVELOPER MODIFICATIONS OR CONTRIBUTIONS.	                        19
+1	AUDIENCE AND PURPOSE OF THIS GUIDE	                                4
+  1.1	INTENDED AUDIENCE	                                              4
+  1.2	PURPOSE	                                                        4
+2	REQUIREMENTS	                                                      4
+  2.1	HARDWARE                                                      	4
+  2.2	SOFTWARE	                                                      4
+3	TASK SPECIFICATIONS	                                                5
+  3.1	AUDITORY VERBAL LEARNING TASK (AVLT)	                          5
+  3.2	EMOTIONAL CATEGORISATION TASK (ECAT)	                          6
+  3.3	EMOTIONAL MEMORY TASK (EMEM)                                  	7
+  3.4	FACES DOT PROBE (FDOT)                                        	8
+  3.5	FACES EMOTION RECOGNITION TASK (FERT)	                          9
+4	INSTALLING THE ETB	                                                10
+  4.1	ACCESSING THE REPOSITORY	                                      10
+  4.2	DOWNLOADING THE REPOSITORY                                    	11
+  4.3	USING THE COMMAND LINE TERMINAL                               	10
+  4.4	SETTING UP THE CONDA ENVIRONMENT                              	11
+  4.5	BUILDING THE ETB-201909 CONDA ENVIRONMENT	                      13
+5	RUNNING THE NON-PYTHON TASKS (AVLT)	                                14
+6	RUNNING THE PYTHON TASKS (ECAT, EMEM, FDOT, FERT)	                  14
+  6.1	ACTIVATE THE CONDA ENVIRONMENT	                                14
+  6.2	RUN THE TASK SCRIPT	                                            14
+  6.3	INPUT EXPERIMENTAL SETTINGS	                                    14
+  6.4	REQUIRED FILE VERIFICATION	                                    15
+  6.5	EXPERIMENTAL SETTINGS INPUT VERIFICATION                      	16
+  6.6	RESULTS FILE CLASH WARNING (MACOS ONLY)	                        17
+  6.7	PARTICIPANT TASK INSTRUCTIONS	                                  17
+  6.8	KEYMAP CHECK                                                  	17
+  6.9	TRIAL PROGRESSION	                                              18
+  6.10	ENDING THE TASK	                                              18
+  6.11	DEACTIVATE THE CONDA ENVIRONMENT	                            18
+  6.12	PSYCHOPY SCREEN SIZE WARNING	                                18
+7	RESULTS	                                                            19
+8	DEVELOPER MODIFICATIONS OR CONTRIBUTIONS.	                          19
+
+
+# Audience and purpose of this guide
+## 1.1 Intended Audience
+Researchers running tasks from the PERL Emotional Test Battery (ETB) including the Facial Expression Recognition Task (FERT), Emotional Categorisation Task (ECAT),Emotional Recall Task (EREC), Emotional Recognition Memory Task (EMEM) and the Faces Dot Probe Task (FDOT).
+
+## 1.2 Purpose
+This document details the actions required to set up, run and review results of all tasks included in the ETB. It also provides detail on experimental design and how resultant experimental data can be checked for completeness. Brief descriptions are also provided for developers on how to modify key elements of the tasks (such as required key press inputs) should this be necessary. 
+Running the tasks requires downloading the materials from gitlab, use of the computer command line (terminal) interface and installation/activation of an Anaconda python environment. This document is intended to be accessible for all users and as such assumes no prior existing knowledge on these processes. 
+Note that references to file names, operators, variables, and terminal commands are highlighted in  monospace font.
+
+# Requirements
+## 2.1	Hardware 
+These tasks are designed to run on either a portable or desktop computer fitted with a complete, functional keyboard and mouse, to be used by the researcher in setting up the tasks and the participant in response to the tasks. The specific keys and manner of participant response required vary between tasks and will be defined in the following document under a subsection for each of the tasks in the ETB.
+
+The tasks have been tested on 1) macOS High Sierra 10.13.6 with 2.9 GHz Intel Core i7 processor and 16 GB RAM; and 2) an average specification PC running Windows 10. Lower hardware and operating system specifications should be tested for fidelity of experimental timing with respect to expected outcomes  described here.
+
+## 2.2	Software
+Running the tasks requires the installation of Anaconda and activation of the conda environment file available from the ETB gitlab repository (described in section 4.4). Successful activation of the conda environment makes available all the software and Python libraries necessary to run the tasks.
+
+If it is necessary to make changes to the task (such as alterations to key inputs), users will need to download and install PsychoPy v 3.0.6 from here: https://github.com/psychopy/psychopy/releases. Later versions of PsychoPy (for example PsychoPy 3.1.0) are not compatible with some components of the task. Earlier versions are untested. All custom code components have been written within the builder rather than directly into the complied code. This enables developers to safely open the tasks in the PsychoPy Builder Graphical User Interface (GUI) while retaining essential custom code components. 
+
+All files supplied in the gitlab repository are described as ‘essential’ or ‘supporting’ in the relevant section describing the task below.
+
+# Task Specifications
+## 3.1 Facial Expression Recognition Task (FERT)
+### 3.1.1 Purpose and outcome measures
+The FERT has been designed to investigate emotional processing and its implications for emotional bias in response to emotional cues in stimuli, specifically faces with expressions portraying fear, happiness, sadness, disgust, neutral, anger and surprise. The participant is informed that the aim of the tasj is correctly identify the expression on the face of the model shown in each image. The participant must respond as quickly and accurately as possible to the stimuli by presing the appropriate key to label each stimulus as portraying an expression of fear, happiness, sadness, disgust, neutral, anger or surprise. There is a continuous variation in the degree of emotion shown in each image as te faces of the models are morphed between the full emotion (100% emotion) and neutral (0% emotion) in 10 steps.
+
+The outcome measures of this task are (ii) accuracy, (ii) reaction times, (iii) false alarms/missclassifications and (iv) response bias. Response bias measures the tendency to respond more or less to one stimulus than another by taking into account the number of false alarms (when participants incorrectly respond that a stimulus is present) and misses (when participants incorrectly respond that a stimulus is not present).
+
+### 3.1.2 Design
+This FERT is comprised of three blocks, separated by a rest period of length determined by the participant (participant controls progression to the next block). The first two experimental blocks contain 83 trials, and the final block contains 84 trials (250 trials in total). In each trial a face is shown of a model expression an emotion which has been morphed with their neutral expression to a fixed percentage (10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90%, 100%). Each version of the task uses images created from four models and 60 images have neen created for each model (6 emotionsl at 10 levels of intensity). Overall all blocks, each images is presented only once. Neutral face images (0% emotion) are also presented in 10 trials, with two repeats of the neutral expression for two models, and three repeats of the neutral expression for the two other models. The order of images is randomised within and between blocks, with the same randomised order used for all runs of the task. The fixed randomisation ensures that there are no more than two contiguous trials of the same emotion (at any percentage) and no more than two contiguous trials of the same model. The order of the images in each block can be obtained by reviewing the stimControl/ trialOrder_ver-N_block-M.xslx files.
+
+In each trial, a blank screen is presented for 1000ms then a face is presented for 500ms. After the face has been presented, the participant is given an unlimited amount of time to identify the emotion and press the appropriate key. The next trial will begin once the response has been made. Face images were selected and modified from the Karolinska Directed Emotional Faces (KDEF) set. A schematic of the design of the FERT is shown in Figure 5. Total trial duration is determined by the participant reaction time (RT).
+
+### 3.1.3 Task Versions
+Three versions of the task have been created, to allow for repeat testing without practice effects. Identify which version of the task to run by entering 1,2 or 3 in the experimental settings screen displayed when the task is run (see section 6). A different set of four models us used for each version of the task.
+
+** INSERT FIGURE 5 **
+
+## 3.2 Emotional Categorisation Task (ECAT)
+### 3.2.1 Purpose and outcome measures
+The ECAT has been designed to investigate emotional processing and the degree and direction of emotional bias in response to emotional cues in stimuli, specifically personality characteristic words chosen to elicit emotional responses. The participant is informed that the aim of the task is to respond as quickly and accurately as possible to the emotional adjective presented by saying whether they would 'like' or 'dislike' to be characterised with that adjective, imagining that a third part is discussing them using that word. 
+
+Reaction time is the primary outcome measure for this task, accuracy is also examined for a speed-accuracy trade-off.
+
+### 3.2.2
+The ECAT is comprised of three blocks of words, separated by a rest period of length determined by the partipant (participant controls progression to the next block). The first two blocks contain 14 words, and the final block contains 12 words. Within each block there are positive and negative personality characteristic words presented in a randomised order, with a new randomisation with each rn of the task. The task features a total of 40 words of personality characteristics (Anderson, 1968) selected such that 50% of the words may be considered to describe negative personality characteristics (e.g. "domineering", "untidy", "hostile") and 50% describe positive personality characteristics (e.g. "cheerful", "honest", "optimistic"). Each word is presnted once over the course of the experiment. These words are matched in terms of word length and ratings of frequency and meaningfulness. The full list of words presented can be obtained by reviewing the stimControl/ trialORder ver-N block-M.xslx files.
+
+Each trial begins with 500ms fixation cross, then 500ms word presentation. There is a fixed 3000ms inter-trial-interval (response period) which follows the stimulus offset during which the participant is required to press a key to identify whether that personality characteristic is one they would "like" (key press Q) or "dislike" (key press O) to be described as. Full task instructions, including key mappings are given at the start of the task in "instruction" screens. A schematic of the experimental design of the ECAT is shown in Figure 2.
+
+** INSERT FIGURE 2 **
+
+### 3.2.3 Task Versions
+Two versions of the task have been created, to allow for repeat testing without practice effects. Identify which version of the task to run by entering 1 or 2 in the experimental settings screen displayed when the task is run (see section 6).
+
+## 3.3 Emotional Recall Task (EREC)
+### 3.3.1 Purpose and Outcome Measures
+The EREC task has been designed to investigate emotional processing and its implications for the emotional bias of a participant via changes to memory in response to likeable and dislikeable personality characteristics words, chosen to elicit emotional responses. In this task memory is assessed via free recall.
+
+THe outcomes measures for this task are the (i) number of words correctly recalled (positive/likeable and negative/dislikeable) and (ii) number of intrusions (recall of incorrect words).
+
+### 3.3.2 Design
+Participants are asked to recall as many words as they can remember from the ECAT (out of the total 60 words). The instructions for this task are given on the computer screen but words are written down used a pen and paper. Participants have **X** minutes to respond. There is an alarm bell at the end of this period.
+
+## 3.4 Emotional Memory Task (EMEM)
+### 3.4.1 Purpose and Outcome Measures
+The EMEM task has been designed to investigate emotional processing and its implications for the emotional bias of a participant via changes to memory in response to likeable and dislikeable personality characteristic words, chosen to elicit emotional responses. In this task memory is assessed via recognition.
+
+The participant is informed that they will be presented with blocks of personality characteristic words, some of which were also presented during the ECAT task, and that the aim of the task is to decide for each word as quickly and accurately as possible whether or not it was presented during the ECAT task.
+
+For this task, the outcome measures are (ii) accuracy, (ii) reaction times and (iii) response bias (see section 3.1, FERT).
+
+**As the EMEM directly relates to the items presented in the ECAT, it should only be run if the ECAT is used and only after the ECAT.**
+
+### 3.4.2 Design
+The EMEM is comprised of three blocks of words, separated by a rest period of length determined by the participant (participant controls progression to the next block). The first block contains 28 words and second and third block contain 27 words. Within each block the 20 positive and 20 negative personality characteristic words presented in the ECAT are again presented, along with 21 novel positive personality characteristic words and 21 novel negative personality characteristic words. The order of words presented is newly randomised with each run of the task. Novel words are matched with familiar words in terms of word length and ratings of frequency and meaningfulness. The full list of words presented can be obtained by reviewing the stimControl/ trialOrder_ver-N_block-M.xslx files.
+
+Each trial begins with 500 ms fixation cross, then 500 ms word presentation. There is a fixed 3000 ms inter-trial-interval (response period) which follows stimulus offset, during which the participant is required to press a key to identify whether that word was presented in the ECAT (participant responds Yes) or not presented in the ECAT (participant responds No). A schematic of the experimental design of the EMEM is shown in Figure 3.
+
+** INSERT FIGURE 3 **
+
+### 3.4.3 Task Versions
+Two versions of the task have been created, to allow for repeat testing without practice effects. Identify which version of the task to run by entering 1 or 2 in the experimental settings screen displayed when the task is run (see section 6). The version of EMEM run should correspond with the version of ECAT run.
+
+## Faces Dot Probe (FDOT)
+### 3.5.1 Purpose and Outcome Measures
+The FDOT has been designed to investigate emotional processing and its implications for emotional bias in response to attentional bias towards emotional cues. In this task attention is cued to a stimulus location through brief presentation of a face showing a fearful or happy expression. A non-emotional face is simultaneously presented to another location on the screen. Following the face cue presentation, the participant is required to identify the orientation of a target stimulus (: or ..) presented in the emotionally cued (congruent) or non-cued (incongruent) location. In one half of the task the face primes are presented for an extended (conscious) duration of 100 ms. In the other half the emotional face cues are presented for a shorter (minimally conscious) duration of 16 ms and followed by a masked face image. Effects of attentional bias are interpreted as reduced reaction times and increased accuracy in reporting the correct orientation of the target stimulus when its location is congruent with the emotional prime face. Effects may be observed in the conscious (unmasked) and/or minimally conscious (masked) presentation modes.
+
+For this task a vigilance score is calculated as the primary measure. This measure is derived by subtracting the reaction times from the congruent trials (trials where the probe appears in the same location as the emotional face), from incongruent trials (trials where the probe appears in a different location from the emotional face). Therefore, positive scores suggest an attentional vigilance towards the emotional stimuli, whilst negative scores indicate attentional bias away from the emotional stimuli. Zero scores suggest no bias towards the emotional face. In addition to the vigilance scores, accuracy and reaction times can also be calculated.
+
+### 3.5.2	Design
+The FDOT consists of a short practice block of four trials, followed by eight blocks of experimental trials, with each block separated by a rest period of length determined by the participant (participant controls progression to the next block). Each experimental block consists of 12 trials, with masked (minimally conscious) blocks interleaved with unmasked (conscious) blocks. Within each trial a fixation cross is displayed for 1000 ms. A vertical pair of face images are then presented for 100 ms in the unmasked blocks, or 16 ms followed by a pair of masked faces for 84 ms in the masked blocks. Following the face presentation a pair of dots in either a vertical (:) or horizontal (..) orientation are displayed in one of the two face locations. The dots remain on the screen until a response has been made, and the response period is unlimited. 
+
+Over all blocks 32/96 trials have a neutral face in both the top and bottom location. These are catch trials to identify bias in purely location based responding. In 30/96 trials the target dot location is congruent with the location of the emotional face (18/96 are congruent fear-neutral pair trials, 16/96 are congruent happy-neutral pair trials). In the remaining 32/96 trials the dot target is incongruent with the location of the emotional face prime (14/19 are incongruent fear-neutral pair trials, 16/96 are incongruent happy-neutral pair trials). The order of trials has been randomised and the same randomised order is used for all runs of the task. The order of images in each block can be obtained by reviewing the stimControl/ trialOrder_ver-N_block-M.xslx files. The face images themselves are modified from the JACFEE/JACNeuF set of Ekman stimuli. A schematic of the design of the FDOT is shown in Figure 4.
+
+### 3.5.3	Task versions
+There is one version of the FDOT. Researchers should expect practice effects if the same task is used on multiple testing sessions for the same participant. Identify version 1 of the task by entering 1 in the experimental settings screen displayed when the task is run (see section 6).
+
+# Installing the ETB
+
+
+
 
